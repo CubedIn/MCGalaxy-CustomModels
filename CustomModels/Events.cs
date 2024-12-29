@@ -173,11 +173,14 @@ namespace MCGalaxy {
 
         static void OnJoiningLevel(Player p, Level level, ref bool canJoin) {
             if (!canJoin) return;
+            try {
+                Debug("OnJoiningLevel {0} {1}", p.name, level.name);
 
-            Debug("OnJoiningLevel {0} {1}", p.name, level.name);
-
-            // send future/new model list to player
-            CheckAddRemove(p, level);
+                // send future/new model list to player
+                CheckAddRemove(p, level);
+            } catch (KeyNotFoundException) {
+            //catches error if using LoginToLastPos plugin
+            }
         }
 
         static void OnJoinedLevel(Player p, Level prevLevel, Level level, ref bool announce) {
