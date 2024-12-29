@@ -25,6 +25,15 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.5.0
+        with:
+    # Artifact name
+          name: artifact # optional, default is artifact
+    # A file, directory or wildcard pattern that describes what to upload
+          path: ${{ github.workspace }}/CustomModels/${{ steps.build_package.outputs.package }}
+    # The desired behavior if no files are found using the provided path.
+          
       - name: Upload Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
